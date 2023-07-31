@@ -4,6 +4,7 @@ const morgan = require('morgan');
 //routes
 const userRoutes = require('./routes/user.route');
 const trasferRoutes = require('./routes/transfer.route');
+const authRoutes = require('./routes/auth.route');
 
 const app = express();
 
@@ -13,6 +14,7 @@ if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 
 //routes created
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/users', authRoutes);
 app.use('/api/v1/transfers', trasferRoutes);
 
 module.exports = app;

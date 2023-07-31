@@ -9,21 +9,23 @@ exports.sendTransfer = async (req, res) => {
     const user = await User.findOne({
       where: {
         accountNumber,
-      },
-    });
-
-    const senderUser = await User.findOne({
-      where: {
-        id: senderUserId,
+        id: receiverUserId,
       },
     });
 
     if (!user) {
       return res.status(404).json({
         status: 'error',
-        message: 'transfer not found',
+        message:
+          'is not posible send the transfer, because the id asociated of this account number is incorrect',
       });
     }
+
+    const senderUser = await User.findOne({
+      where: {
+        id: senderUserId,
+      },
+    });
 
     if (senderUser.amount < amount) {
       return res.status(403).json({
